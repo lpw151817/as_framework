@@ -2,6 +2,9 @@ package jerry.framework;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.acra.ACRA;
 import org.acra.ErrorReporter;
 import org.acra.ReportField;
@@ -19,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jerry.framework.util.Contants;
+import jerry.framework.util.VolleyTools;
 
 /**
  * Created by JerryLiu on 2015/4/13.
@@ -31,17 +35,31 @@ import jerry.framework.util.Contants;
                 ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.STACK_TRACE,
                 ReportField.LOGCAT, ReportField.THREAD_DETAILS, ReportField.USER_CRASH_DATE}, mode = ReportingInteractionMode.SILENT)
 public class Application extends android.app.Application {
+    private VolleyTools tools;
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-
+        this.tools = new VolleyTools(this);
         ACRA.init(this);
         ErrorReporter.getInstance().removeAllReportSenders();
         ErrorReporter.getInstance().setReportSender(new CrashReportSender(this));
-
     }
 
+    public VolleyTools getTools() {
+        return tools;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        tools.release();
+    }
+
+    public Gson getGson() {
+        return gson;
+    }
 
     private class CrashReportSender implements ReportSender {
 
@@ -54,12 +72,12 @@ public class Application extends android.app.Application {
         @Override
         public void send(CrashReportData arg0) throws ReportSenderException {
 
-            // // 发送email报告
-            // System.out.println("发送email");
+            // // ??email??
+            // System.out.println("??email");
             // new EmailIntentSender(context).send(arg0);
 
-            // // 发送post请求到formuri
-            // System.out.println("发送post请求到formuri");
+            // // ??post???formuri
+            // System.out.println("??post???formuri");
             // Map<ReportField, String> params = new HashMap<ReportField,
             // String>();
             // params.put(ReportField.ANDROID_VERSION,
@@ -80,25 +98,25 @@ public class Application extends android.app.Application {
             // arg0.getProperty(ReportField.USER_CRASH_DATE));
             // new HttpSender(Method.POST, Type.JSON, params);
 
-            // // 发送CrashReport到google账户
-            // System.out.println("发送CrashReport到google账户");
+            // // ??CrashReport?google??
+            // System.out.println("??CrashReport?google??");
             // new GoogleFormSender().send(arg0);
 
-            // 保存本地log
+            // ????log
             String fileName = "CrashReport_"
                     + new SimpleDateFormat("yyyy-MMddHH-mmss").format(new Date(System
                     .currentTimeMillis())) + ".txt";
             File logFile = new File(Contants.crash_log_path_without_filename, fileName);
 
             try {
-                // 父目录是否存在
+                // ???????
                 if (!logFile.getParentFile().exists())
                     logFile.getParentFile().mkdirs();
-                // 文件是否存在
+                // ??????
                 if (!logFile.exists())
                     logFile.createNewFile();
 
-                // 写入内容
+                // ????
                 FileWriter filerWriter = new FileWriter(logFile, true);
                 BufferedWriter bufWriter = new BufferedWriter(filerWriter);
                 bufWriter.write("ReportField.ANDROID_VERSION = "
