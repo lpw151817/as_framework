@@ -1,19 +1,38 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.framework.activity.MainActivity" >
+        tools:context="com.framework.activity.MainActivity">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button1"
+            android:id="@+id/button1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button2"
+            android:id="@+id/button2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button3"
+            android:id="@+id/button3" />
 
         <TextView
             android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="test..." />
+
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/image"

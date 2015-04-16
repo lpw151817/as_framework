@@ -31,6 +31,8 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile files('libs/volley.jar')
+
+    compile 'com.android.support:recyclerview-v7:22.0.0'
 }
 
 apt {
