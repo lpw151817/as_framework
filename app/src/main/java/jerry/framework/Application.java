@@ -14,14 +14,12 @@ import org.acra.collector.CrashReportData;
 import org.acra.sender.ReportSender;
 import org.acra.sender.ReportSenderException;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import jerry.framework.util.Contants;
+import jerry.framework.util.DateUtils;
+import jerry.framework.util.FileUtils;
 import jerry.framework.util.VolleyTools;
 
 /**
@@ -103,57 +101,31 @@ public class Application extends android.app.Application {
             // new GoogleFormSender().send(arg0);
 
             // ????log
-            String fileName = "CrashReport_"
-                    + new SimpleDateFormat("yyyy-MMddHH-mmss").format(new Date(System
-                    .currentTimeMillis())) + ".txt";
-            File logFile = new File(Contants.crash_log_path_without_filename, fileName);
+            String fileName = "CrashReport_" + DateUtils.getDateString() + ".txt";
+            File logFile =FileUtils.createFile(Contants.crash_log_path_without_filename, fileName);
 
             try {
-                // ???????
-                if (!logFile.getParentFile().exists())
-                    logFile.getParentFile().mkdirs();
-                // ??????
-                if (!logFile.exists())
-                    logFile.createNewFile();
-
-                // ????
-                FileWriter filerWriter = new FileWriter(logFile, true);
-                BufferedWriter bufWriter = new BufferedWriter(filerWriter);
-                bufWriter.write("ReportField.ANDROID_VERSION = "
+                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
                         + arg0.getProperty(ReportField.ANDROID_VERSION));
-                bufWriter.newLine();
-                bufWriter.write("ReportField.APP_VERSION_NAME = "
+
+                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
+                        + arg0.getProperty(ReportField.ANDROID_VERSION));
+                FileUtils.writeFile(logFile,"ReportField.APP_VERSION_NAME = "
                         + arg0.getProperty(ReportField.APP_VERSION_NAME));
-                bufWriter.newLine();
-                bufWriter.write("ReportField.APP_VERSION_CODE = "
+                FileUtils.writeFile(logFile,"ReportField.APP_VERSION_CODE = "
                         + arg0.getProperty(ReportField.APP_VERSION_CODE));
-                bufWriter.newLine();
-                bufWriter.write("ReportField.ANDROID_VERSION = "
+                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
                         + arg0.getProperty(ReportField.ANDROID_VERSION));
-                bufWriter.newLine();
-                bufWriter
-                        .write("ReportField.PHONE_MODEL = " + arg0.getProperty(ReportField.PHONE_MODEL));
-                bufWriter.newLine();
-                bufWriter.write("ReportField.USER_CRASH_DATE = "
+                FileUtils.writeFile(logFile,"ReportField.PHONE_MODEL = " + arg0.getProperty(ReportField.PHONE_MODEL));
+                FileUtils.writeFile(logFile,"ReportField.USER_CRASH_DATE = "
                         + arg0.getProperty(ReportField.USER_CRASH_DATE));
-                bufWriter.newLine();
-                bufWriter.write("============= ReportField.THREAD_DETAILS ================");
-                bufWriter.newLine();
-                bufWriter.write("ReportField.THREAD_DETAILS = "
+                FileUtils.writeFile(logFile,"============= ReportField.THREAD_DETAILS ================");
+                FileUtils.writeFile(logFile,"ReportField.THREAD_DETAILS = "
                         + arg0.getProperty(ReportField.THREAD_DETAILS));
-                bufWriter.newLine();
-                bufWriter.write("============= ReportField.STACK_TRACE ================");
-                bufWriter.newLine();
-                bufWriter
-                        .write("ReportField.STACK_TRACE = " + arg0.getProperty(ReportField.STACK_TRACE));
-                bufWriter.newLine();
-                bufWriter.write("============= ReportField.LOGCAT ================");
-                bufWriter.newLine();
-                bufWriter.write("ReportField.LOGCAT = " + arg0.getProperty(ReportField.LOGCAT));
-                bufWriter.newLine();
-
-                bufWriter.close();
-                filerWriter.close();
+                FileUtils.writeFile(logFile,"============= ReportField.STACK_TRACE ================");
+                FileUtils.writeFile(logFile,"ReportField.STACK_TRACE = " + arg0.getProperty(ReportField.STACK_TRACE));
+                FileUtils.writeFile(logFile,"============= ReportField.LOGCAT ================");
+                FileUtils.writeFile(logFile,"ReportField.LOGCAT = " + arg0.getProperty(ReportField.LOGCAT));
 
             } catch (IOException e) {
                 e.printStackTrace();

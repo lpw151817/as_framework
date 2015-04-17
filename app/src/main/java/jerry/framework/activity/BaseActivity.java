@@ -1,6 +1,8 @@
 package jerry.framework.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,20 +25,39 @@ public class BaseActivity extends Activity {
         getVolleyTools().getQueue().cancelAll(this);
     }
 
-    public VolleyTools getVolleyTools() {
+    protected VolleyTools getVolleyTools() {
         return ((Application) getApplication()).getTools();
     }
 
-    public Gson getGson() {
+    protected Gson getGson() {
         return ((Application) getApplication()).getGson();
     }
 
-    public void showToast(String s) {
+    protected void showShortToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showShortToast(int resID) {
+        Toast.makeText(this, resID, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showLongToast(int resID) {
+        Toast.makeText(this, resID, Toast.LENGTH_LONG).show();
+    }
+
+    protected void showLongToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 
-    public void showLog(String s) {
+    protected void showLog(String s) {
         Log.i(this.getClass().getName(), s);
+    }
+
+
+    protected void startActivity(Class<?> targetActivity, Bundle bundle) {
+        Intent intent = new Intent(this, targetActivity);
+        if (bundle != null) intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
