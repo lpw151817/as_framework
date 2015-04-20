@@ -2,6 +2,7 @@ package jerry.framework.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import jerry.framework.util.VolleyTools;
  *
  * @author Jerry
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     String url;
     TextView textView;
@@ -117,6 +118,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void iniEvent() {
-
+        textView.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.test:
+
+                break;
+        }
+    }
+
 }
