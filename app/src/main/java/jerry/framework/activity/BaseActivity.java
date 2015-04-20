@@ -15,15 +15,26 @@ import jerry.framework.util.VolleyTools;
 /**
  * Created by JerryLiu on 2015/4/14.
  */
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
     // 用于本地数据库存储
     protected BaseDAO dao;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        iniViews();
+        iniEvent();
+    }
 
     @Override
     protected void onStop() {
         super.onStop();
         getVolleyTools().getQueue().cancelAll(this);
     }
+
+    protected abstract void iniViews();
+
+    protected abstract void iniEvent();
 
     protected VolleyTools getVolleyTools() {
         return ((Application) getApplication()).getTools();

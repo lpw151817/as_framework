@@ -9,10 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,33 +19,33 @@ import jerry.framework.request.StringRequest;
 import jerry.framework.util.VolleyTools;
 
 /**
- * <b>AndroidAnnotation's usage:</b><br/>
- * http://blog.csdn.net/limb99/article/details/9067827<br/>
- * <b>You also can study it by:</b><br/>
- * https://github.com/excilys/androidannotations/wiki<br/>
- * <br/>
  * <b>Volley's usage:</b><br/>
  * You can get it by the example below.<br/>
  * <br/>
  *
  * @author Jerry
  */
-@EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
     String url;
-    @ViewById(R.id.test)
     TextView textView;
-    @ViewById(R.id.image)
     NetworkImageView imageView;
-    @ViewById(R.id.imageview)
     ImageView img;
 
     VolleyTools tool;
 
-    // AfterViews注释定义的方法会在OnCreate方法的setContentView后执行
-    @AfterViews
-    void ini() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void iniViews() {
+        textView = (TextView) findViewById(R.id.test);
+        imageView = (NetworkImageView) findViewById(R.id.image);
+        img = (ImageView) findViewById(R.id.imageview);
+
 
         // 得到VolleyTools的实例，已定义在Application，从BaseActivity中取出
         tool = getVolleyTools();
@@ -120,9 +116,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void iniEvent() {
 
     }
 }
