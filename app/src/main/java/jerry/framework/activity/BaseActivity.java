@@ -68,8 +68,26 @@ public abstract class BaseActivity extends Activity {
     }
 
 
+    /**
+     * 跳转Activity
+     *
+     * @param bundle 可为null
+     */
     protected void startActivity(Class<?> targetActivity, Bundle bundle) {
         Intent intent = new Intent(this, targetActivity);
+        if (bundle != null) intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    /**
+     * Activity注销功能
+     *
+     * @param loginActivity 登陆的Activity
+     * @param bundle        可为null
+     */
+    protected void logoutActivity(Class<?> loginActivity, Bundle bundle) {
+        Intent intent = new Intent(this, loginActivity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         if (bundle != null) intent.putExtras(bundle);
         startActivity(intent);
     }
