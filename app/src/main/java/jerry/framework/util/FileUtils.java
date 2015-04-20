@@ -3,10 +3,16 @@ package jerry.framework.util;
 import android.net.Uri;
 import android.os.Environment;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 文件工具类
@@ -15,14 +21,9 @@ import java.io.IOException;
 public class FileUtils {
     /**
      * 判断是否有SD卡
-     *
-     * @return
      */
     public static boolean isSdcardExist() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        }
-        return false;
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /**
@@ -69,10 +70,6 @@ public class FileUtils {
 
     /**
      * 删除文件
-     *
-     * @param path
-     * @param fileName
-     * @return
      */
     public static boolean deleteFile(String path, String fileName) {
         File f = new File(path, fileName);
@@ -83,9 +80,6 @@ public class FileUtils {
 
     /**
      * 删除对应目录下的所有文件
-     *
-     * @param path
-     * @return
      */
     public static boolean deleteAllFiles(String path) {
         File f = new File(path);
@@ -100,9 +94,6 @@ public class FileUtils {
 
     /**
      * 删除目录并删除对应目录下的所有文件
-     *
-     * @param path
-     * @return
      */
     public static boolean deleteDir(String path) {
         File f = new File(path);
@@ -127,7 +118,6 @@ public class FileUtils {
      *
      * @param f
      * @param s 需要写入的内容
-     * @throws IOException
      */
     public static void writeFile(File f, String s) throws IOException {
         FileWriter filerWriter = new FileWriter(f, true);
@@ -136,5 +126,35 @@ public class FileUtils {
         bufWriter.newLine();
         bufWriter.close();
         filerWriter.close();
+    }
+
+    /**
+     * 读文件
+     */
+    public static String readFile(String path, String filename) {
+        File f = new File(path, filename);
+        if (!f.exists()) return null;
+        try {
+            String readedStr = "";
+            BufferedReader br;
+            InputStream inputStream = new FileInputStream(f);
+            br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String tmp;
+            while ((tmp = br.readLine()) != null) {
+                readedStr += tmp + "\r\n";
+            }
+            br.close();
+            inputStream.close();
+            return readedStr;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

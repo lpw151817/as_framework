@@ -19,6 +19,9 @@ public abstract class BaseActivity extends Activity {
     // 用于本地数据库存储
     protected BaseDAO dao;
 
+    /**
+     * 初始化Views和Event
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
