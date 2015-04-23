@@ -1,6 +1,5 @@
 package jerry.framework.bean;
 
-import com.google.gson.Gson;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,16 +9,6 @@ public class Test extends BaseBean {
     // 其他属性
     @DatabaseField
     private int state;
-
-    @Override
-    public Test fromJson(String json, Gson g) {
-        return g.fromJson(json, Test.class);
-    }
-
-    @Override
-    public String toJson( Gson g) {
-        return  g.toJson(this);
-    }
 
     // 主键
     @DatabaseField(id = true)

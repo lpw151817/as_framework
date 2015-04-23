@@ -20,12 +20,9 @@ public class TextUtils {
     /**
      * 根据年月日获取年龄
      *
-     * @param year
-     *            年
-     * @param month
-     *            月
-     * @param day
-     *            日
+     * @param year  年
+     * @param month 月
+     * @param day   日
      * @return
      */
     public static int getAge(int year, int month, int day) {

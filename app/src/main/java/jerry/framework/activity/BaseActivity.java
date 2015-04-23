@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+import java.util.List;
+
 import jerry.framework.Application;
 import jerry.framework.dao.BaseDAO;
 import jerry.framework.util.VolleyTools;
@@ -45,6 +48,26 @@ public abstract class BaseActivity extends Activity {
 
     protected Gson getGson() {
         return ((Application) getApplication()).getGson();
+    }
+
+    /**
+     * e.g.
+     * fromJson(js, Test.class);
+     */
+    protected <T extends Object> T fromJson(String json, Class<T> target) {
+        return getGson().fromJson(json, target);
+    }
+
+    /**
+     * e.g.
+     * fromJson2List(js,Test[].class)
+     */
+    protected <T extends Object> List<T> fromJson2List(String s, Class<T[]> clazz) {
+        return Arrays.asList(new Gson().fromJson(s, clazz));
+    }
+
+    protected String toJson(Object o) {
+        return getGson().toJson(o);
     }
 
     protected void showShortToast(String s) {
