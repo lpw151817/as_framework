@@ -86,8 +86,21 @@ public abstract class BaseActivity extends Activity {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 
-    protected void showLog(String s) {
-        Log.i(this.getClass().getName(), s);
+
+    protected void showLog_i(String msg) {
+        Log.i(this.getClass().getName(), msg);
+    }
+
+    protected void showLog_d(String msg) {
+        Log.d(this.getClass().getName(), msg);
+    }
+
+    protected void showLog_e(String msg) {
+        Log.e(this.getClass().getName(), msg);
+    }
+
+    protected void showLog_v(String msg) {
+        Log.v(this.getClass().getName(), msg);
     }
 
 

@@ -20,6 +20,7 @@ public class ListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_list);
         super.onCreate(savedInstanceState);
+
     }
 
 
