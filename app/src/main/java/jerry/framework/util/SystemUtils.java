@@ -10,6 +10,9 @@ import android.net.NetworkInfo;
  * Created by JerryLiu on 2015/4/17.
  */
 public class SystemUtils {
+    /**
+     * @return 获取失败返回0
+     */
     public static int getVersionCode(Context context)// 获取版本号(内部识别号)
     {
         try {
@@ -21,29 +24,39 @@ public class SystemUtils {
         }
     }
 
-
-    public enum NetWorkState {
-        WIFI, MOBILE, NONE;
+    /**
+     * 获取应用程序版本名称信息
+     *
+     * @return 当前应用的版本名称  获取失败返回null
+     */
+    public static String getVersionName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 
     /**
-     * 获取当前的网络状态
-     *
-     * @return
+     * 获取应用程序名称
      */
-    public static NetWorkState getConnectState(Context mContext) {
-        ConnectivityManager manager = (ConnectivityManager) mContext
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        manager.getActiveNetworkInfo();
-        NetworkInfo.State wifiState = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
-        NetworkInfo.State mobileState = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
-        if (wifiState != null && mobileState != null && NetworkInfo.State.CONNECTED != wifiState && NetworkInfo.State.CONNECTED == mobileState) {
-            return NetWorkState.MOBILE;
-        } else if (wifiState != null && mobileState != null && NetworkInfo.State.CONNECTED != wifiState && NetworkInfo.State.CONNECTED != mobileState) {
-            return NetWorkState.NONE;
-        } else if (wifiState != null && NetworkInfo.State.CONNECTED == wifiState) {
-            return NetWorkState.WIFI;
+    public static String getAppName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            int labelRes = packageInfo.applicationInfo.labelRes;
+            return context.getResources().getString(labelRes);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
-        return NetWorkState.NONE;
+        return null;
     }
+
+
+
 }
