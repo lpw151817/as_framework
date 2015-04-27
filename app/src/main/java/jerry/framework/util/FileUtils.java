@@ -66,6 +66,10 @@ public class FileUtils {
         return stat.getBlockSize() * availableBlocks;
     }
 
+    public static double byte2Mb(long bytes) {
+        return bytes / 1024 / 1024;
+    }
+
     /**
      * 获取系统存储路径
      */
@@ -75,12 +79,15 @@ public class FileUtils {
 
     /**
      * 创建目录
+     *
+     * @return 目录创建不成功返回false
      */
-    public static void createDirFileWithoutFileName(String path) {
+    public static boolean createDirFileWithoutFileName(String path) {
         File dir = new File(path);
         if (!dir.exists()) {
-            dir.mkdirs();
+            return dir.mkdirs();
         }
+        return true;
     }
 
 //    /**
@@ -103,8 +110,9 @@ public class FileUtils {
             File f = new File(path, fileName);
             //如果父目录不存在则创建父目录
             if (!f.getParentFile().exists()) {
-                createDirFileWithoutFileName(path);
-                f.createNewFile();
+                if (createDirFileWithoutFileName(path))
+                    f.createNewFile();
+                else return null;
             } else {
                 if (!f.exists()) f.createNewFile();
             }
@@ -204,4 +212,5 @@ public class FileUtils {
             return null;
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package jerry.framework.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import jerry.framework.R;
 import jerry.framework.bean.Test;
 import jerry.framework.request.ImageRequest;
 import jerry.framework.request.StringRequest;
+import jerry.framework.util.PicUtils;
 import jerry.framework.util.VolleyTools;
 
 /**
@@ -121,12 +123,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textView.setOnClickListener(this);
     }
 
+    private String path;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.test:
+                path = PicUtils.takePicture(MainActivity.this);
                 break;
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PicUtils.INTENT_REQUEST_CODE_CAMERA:
+                    showLog_i(path + "<<<<<<<<<<<<<<<<<<");
+                    break;
+
+            }
+        }
+    }
 }

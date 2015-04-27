@@ -27,7 +27,7 @@ import jerry.framework.util.VolleyTools;
  */
 @ReportsCrashes(formKey = "",// 发送crashReport到google账户中，默认为空
 // = "dGVacG0ydVHnaNHjRjVTUTEtb3FPWGc6MQ",
-// mailTo = "user@domain.com",// EmailIntentSender发送的目标emial
+//mailTo = "user@domain.com",// EmailIntentSender发送的目标emial
 // formUri = "",//HttpSender默认发送的服务器uri地址
         customReportContent = {ReportField.APP_VERSION_NAME, ReportField.APP_VERSION_CODE,
                 ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.STACK_TRACE,
@@ -100,35 +100,39 @@ public class Application extends android.app.Application {
             // System.out.println("??CrashReport?google??");
             // new GoogleFormSender().send(arg0);
 
-            // ????log
-            String fileName = "CrashReport_" + DateUtils.getDateString() + ".txt";
-            File logFile =FileUtils.createFile(Contants.crash_log_path_without_filename, fileName);
+            // log
+            //  当有SD卡的时候将Log存入SD卡中
+            if (FileUtils.isSdcardExist()) {
+                try {
 
-            try {
-                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
-                        + arg0.getProperty(ReportField.ANDROID_VERSION));
+                    String fileName = "CrashReport_" + DateUtils.getDateString() + ".txt";
 
-                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
-                        + arg0.getProperty(ReportField.ANDROID_VERSION));
-                FileUtils.writeFile(logFile,"ReportField.APP_VERSION_NAME = "
-                        + arg0.getProperty(ReportField.APP_VERSION_NAME));
-                FileUtils.writeFile(logFile,"ReportField.APP_VERSION_CODE = "
-                        + arg0.getProperty(ReportField.APP_VERSION_CODE));
-                FileUtils.writeFile(logFile,"ReportField.ANDROID_VERSION = "
-                        + arg0.getProperty(ReportField.ANDROID_VERSION));
-                FileUtils.writeFile(logFile,"ReportField.PHONE_MODEL = " + arg0.getProperty(ReportField.PHONE_MODEL));
-                FileUtils.writeFile(logFile,"ReportField.USER_CRASH_DATE = "
-                        + arg0.getProperty(ReportField.USER_CRASH_DATE));
-                FileUtils.writeFile(logFile,"============= ReportField.THREAD_DETAILS ================");
-                FileUtils.writeFile(logFile,"ReportField.THREAD_DETAILS = "
-                        + arg0.getProperty(ReportField.THREAD_DETAILS));
-                FileUtils.writeFile(logFile,"============= ReportField.STACK_TRACE ================");
-                FileUtils.writeFile(logFile,"ReportField.STACK_TRACE = " + arg0.getProperty(ReportField.STACK_TRACE));
-                FileUtils.writeFile(logFile,"============= ReportField.LOGCAT ================");
-                FileUtils.writeFile(logFile,"ReportField.LOGCAT = " + arg0.getProperty(ReportField.LOGCAT));
+                    File logFile = FileUtils.createFile(Contants.crash_log_path_without_filename, fileName);
+                    FileUtils.writeFile(logFile, "ReportField.ANDROID_VERSION = "
+                            + arg0.getProperty(ReportField.ANDROID_VERSION));
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                    FileUtils.writeFile(logFile, "ReportField.ANDROID_VERSION = "
+                            + arg0.getProperty(ReportField.ANDROID_VERSION));
+                    FileUtils.writeFile(logFile, "ReportField.APP_VERSION_NAME = "
+                            + arg0.getProperty(ReportField.APP_VERSION_NAME));
+                    FileUtils.writeFile(logFile, "ReportField.APP_VERSION_CODE = "
+                            + arg0.getProperty(ReportField.APP_VERSION_CODE));
+                    FileUtils.writeFile(logFile, "ReportField.ANDROID_VERSION = "
+                            + arg0.getProperty(ReportField.ANDROID_VERSION));
+                    FileUtils.writeFile(logFile, "ReportField.PHONE_MODEL = " + arg0.getProperty(ReportField.PHONE_MODEL));
+                    FileUtils.writeFile(logFile, "ReportField.USER_CRASH_DATE = "
+                            + arg0.getProperty(ReportField.USER_CRASH_DATE));
+                    FileUtils.writeFile(logFile, "============= ReportField.THREAD_DETAILS ================");
+                    FileUtils.writeFile(logFile, "ReportField.THREAD_DETAILS = "
+                            + arg0.getProperty(ReportField.THREAD_DETAILS));
+                    FileUtils.writeFile(logFile, "============= ReportField.STACK_TRACE ================");
+                    FileUtils.writeFile(logFile, "ReportField.STACK_TRACE = " + arg0.getProperty(ReportField.STACK_TRACE));
+                    FileUtils.writeFile(logFile, "============= ReportField.LOGCAT ================");
+                    FileUtils.writeFile(logFile, "ReportField.LOGCAT = " + arg0.getProperty(ReportField.LOGCAT));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
