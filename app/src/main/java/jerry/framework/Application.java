@@ -25,10 +25,10 @@ import jerry.framework.util.VolleyTools;
 /**
  * Created by JerryLiu on 2015/4/13.
  */
-@ReportsCrashes(formKey = "",// ����crashReport��google�˻��У�Ĭ��Ϊ��
+@ReportsCrashes(formKey = "",//发送crashReport到google账户中，默认为空
 // = "dGVacG0ydVHnaNHjRjVTUTEtb3FPWGc6MQ",
-//mailTo = "user@domain.com",// EmailIntentSender���͵�Ŀ��emial
-// formUri = "",//HttpSenderĬ�Ϸ��͵ķ�����uri��ַ
+//mailTo = "user@domain.com",//EmailIntentSender发送的目标emial
+// formUri = "",//HttpSender默认发送的服务器uri地址
         customReportContent = {ReportField.APP_VERSION_NAME, ReportField.APP_VERSION_CODE,
                 ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.STACK_TRACE,
                 ReportField.LOGCAT, ReportField.THREAD_DETAILS, ReportField.USER_CRASH_DATE}, mode = ReportingInteractionMode.SILENT)
@@ -101,7 +101,7 @@ public class Application extends android.app.Application {
             // new GoogleFormSender().send(arg0);
 
             // log
-            //  ����SD����ʱ��Log����SD����
+            //  当有SD卡的时候将Log存入SD卡中
             if (FileUtils.isSdcardExist()) {
                 try {
 

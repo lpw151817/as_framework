@@ -3,14 +3,14 @@ package jerry.framework.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-//±íÃû£¬ÈôÎŞ£¬ÔòÊ¹ÓÃÀàÃû×÷Îª±íÃû×Ö
+//è¡¨åï¼Œè‹¥æ— ï¼Œåˆ™ä½¿ç”¨ç±»åä½œä¸ºè¡¨åå­—
 @DatabaseTable
 public class Test extends BaseBean {
-    // ÆäËûÊôĞÔ
+    // å…¶ä»–å±æ€§
     @DatabaseField
     private int state;
 
-    // Ö÷¼ü
+    // ä¸»é”®
     @DatabaseField(id = true)
     private int userprofileId;
 
@@ -19,7 +19,7 @@ public class Test extends BaseBean {
         this.userprofileId = userprofileId;
     }
 
-    // ±ØĞë´øÓĞÎŞ²ÎµÄ¹¹Ôì
+    // å¿…é¡»å¸¦æœ‰æ— å‚çš„æ„é€ 
     public Test() {
     }
 

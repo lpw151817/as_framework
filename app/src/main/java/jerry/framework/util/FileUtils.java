@@ -1,8 +1,12 @@
 package jerry.framework.util;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.provider.MediaStore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,33 +20,33 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 /**
- * ÎÄ¼ş¹¤¾ßÀà
+ * æ–‡ä»¶å·¥å…·ç±»
  * Created by JerryLiu on 2015/4/17.
  */
 public class FileUtils {
     /**
-     * ÅĞ¶ÏÊÇ·ñÓĞSD¿¨
+     * åˆ¤æ–­æ˜¯å¦æœ‰SDå¡
      */
     public static boolean isSdcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /**
-     * »ñÈ¡SD¿¨Â·¾¶
+     * è·å–SDå¡è·¯å¾„
      */
     public static String getSDCardPath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
     }
 
     /**
-     * »ñÈ¡SD¿¨µÄÊ£ÓàÈİÁ¿ µ¥Î»byte
+     * è·å–SDå¡å¤§å°ï¼Œå•ä½æ˜¯byte
      */
     public static long getSDCardAllSize() {
         if (isSdcardExist()) {
             StatFs stat = new StatFs(getSDCardPath());
-            // »ñÈ¡¿ÕÏĞµÄÊı¾İ¿éµÄÊıÁ¿
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-            // »ñÈ¡µ¥¸öÊı¾İ¿éµÄ´óĞ¡£¨byte£©
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½Ä´ï¿½Ğ¡ï¿½ï¿½byteï¿½ï¿½
             long freeBlocks = stat.getAvailableBlocks();
             return freeBlocks * availableBlocks;
         }
@@ -50,15 +54,14 @@ public class FileUtils {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨Â·¾¶ËùÔÚ¿Õ¼äµÄÊ£Óà¿ÉÓÃÈİÁ¿×Ö½ÚÊı£¬µ¥Î»byte
+     * è·å–å¯¹åº”è·¯å¾„å‰©ä½™å¤§å°ï¼Œå•ä½æ˜¯byte
      *
-     * @return ÈİÁ¿×Ö½Ú SDCard¿ÉÓÃ¿Õ¼ä£¬ÄÚ²¿´æ´¢¿ÉÓÃ¿Õ¼ä
+     * @return å¦‚æœæ˜¯SDå¡çš„è·¯å¾„åˆ™è¿”å›SDå¡çš„å‰©ä½™ï¼Œå¦‚æœä¸æ˜¯ï¼Œåˆ™è¿”å›å¯¹åº”æ•°æ®æ–‡ä»¶å¤¹çš„å¤§å°
      */
     public static long getFreeBytes(String filePath) {
-        // Èç¹ûÊÇsd¿¨µÄÏÂµÄÂ·¾¶£¬Ôò»ñÈ¡sd¿¨¿ÉÓÃÈİÁ¿
         if (filePath.startsWith(getSDCardPath())) {
             filePath = getSDCardPath();
-        } else {// Èç¹ûÊÇÄÚ²¿´æ´¢µÄÂ·¾¶£¬Ôò»ñÈ¡ÄÚ´æ´æ´¢µÄ¿ÉÓÃÈİÁ¿
+        } else {
             filePath = Environment.getDataDirectory().getAbsolutePath();
         }
         StatFs stat = new StatFs(filePath);
@@ -71,16 +74,16 @@ public class FileUtils {
     }
 
     /**
-     * »ñÈ¡ÏµÍ³´æ´¢Â·¾¶
+     * è·å–rootæ–‡ä»¶å¤¹åœ°å€
      */
     public static String getRootDirectoryPath() {
         return Environment.getRootDirectory().getAbsolutePath();
     }
 
     /**
-     * ´´½¨Ä¿Â¼
+     * åˆ›å»ºæ–‡ä»¶å¤¹
      *
-     * @return Ä¿Â¼´´½¨²»³É¹¦·µ»Øfalse
+     * @return åˆ›å»ºå¤±è´¥è¿”å›false
      */
     public static boolean createDirFileWithoutFileName(String path) {
         File dir = new File(path);
@@ -90,9 +93,6 @@ public class FileUtils {
         return true;
     }
 
-//    /**
-//     * ´´½¨Ä¿Â¼
-//     */
 //    public static void createDirFileWithFileName(String path) {
 //        File dir = new File(path);
 //        if (!dir.exists()) {
@@ -101,14 +101,14 @@ public class FileUtils {
 //    }
 
     /**
-     * ´´½¨ÎÄ¼ş
+     * åˆ›å»ºæ–‡ä»¶
      *
-     * @return ´´½¨³É¹¦Ôò·µ»ØFile¶ÔÏó£¬Ê§°Ü·µ»Ønull
+     * @return åˆ›å»ºæˆåŠŸè¿”å›å¯¹åº”fileå¯¹è±¡ï¼Œåˆ›å»ºå¤±è´¥è¿”å›null
      */
     public static File createFile(String path, String fileName) {
         try {
             File f = new File(path, fileName);
-            //Èç¹û¸¸Ä¿Â¼²»´æÔÚÔò´´½¨¸¸Ä¿Â¼
+            //åˆ¤æ–­çˆ¶æ–‡ä»¶å¤¹æ˜¯å¦å­˜åœ¨
             if (!f.getParentFile().exists()) {
                 if (createDirFileWithoutFileName(path))
                     f.createNewFile();
@@ -124,7 +124,7 @@ public class FileUtils {
     }
 
     /**
-     * É¾³ıÎÄ¼ş
+     * åˆ é™¤æ–‡ä»¶
      */
     public static boolean deleteFile(String path, String fileName) {
         File f = new File(path, fileName);
@@ -134,7 +134,7 @@ public class FileUtils {
     }
 
     /**
-     * É¾³ı¶ÔÓ¦Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş
+     * åˆ é™¤æ–‡ä»¶å¤¹ä¸­æ‰€æœ‰æ–‡ä»¶
      */
     public static boolean deleteAllFiles(String path) {
         File f = new File(path);
@@ -148,7 +148,7 @@ public class FileUtils {
     }
 
     /**
-     * É¾³ıÄ¿Â¼²¢É¾³ı¶ÔÓ¦Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş
+     * åˆ é™¤æ–‡ä»¶å¤¹ï¼Œå¹¶åˆ é™¤å…¶ä¸­æ‰€æœ‰æ–‡ä»¶
      */
     public static boolean deleteDir(String path) {
         File f = new File(path);
@@ -161,18 +161,37 @@ public class FileUtils {
     }
 
     /**
-     * »ñÈ¡ÎÄ¼şµÄUri
+     * ä»fileå¯¹è±¡ä¸­è·å–Uri
      */
     public static Uri getUriFromFile(String path, String fileName) {
         File file = new File(path, fileName);
         return Uri.fromFile(file);
     }
 
+    public static File getFileFromUri(Uri contentUri, Context c) {
+        if (contentUri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+
+            String res = null;
+            String[] proj = {MediaStore.Images.Media.DATA};
+            Cursor cursor = c.getContentResolver().query(contentUri, proj, null, null, null);
+            if (cursor.moveToFirst()) {
+                ;
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                res = cursor.getString(column_index);
+            }
+            cursor.close();
+            return new File(res);
+        } else {
+            return new File(contentUri.getPath());
+        }
+
+    }
+
     /**
-     * Ğ´ÎÄ¼ş£¬²¢×Ô¶¯»»ĞĞ
+     * å†™æ–‡ä»¶ï¼Œå¹¶è‡ªåŠ¨æ¢è¡Œ
      *
      * @param f
-     * @param s ĞèÒªĞ´ÈëµÄÄÚÈİ
+     * @param s éœ€è¦å†™å…¥çš„ä¸€è¡Œå†…å®¹
      */
     public static void writeFile(File f, String s) throws IOException {
         FileWriter filerWriter = new FileWriter(f, true);
@@ -184,7 +203,7 @@ public class FileUtils {
     }
 
     /**
-     * ¶ÁÎÄ¼ş
+     * è¯»æ–‡ä»¶
      */
     public static String readFile(String path, String filename) {
         File f = new File(path, filename);

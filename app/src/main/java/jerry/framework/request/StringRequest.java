@@ -15,7 +15,7 @@ import java.util.Map;
 public class StringRequest extends com.android.volley.toolbox.StringRequest {
     private Map param;
     private Response.Listener<String> responseListener;
-    //³¬Ê±Ê±¼ä
+    //è¿žæŽ¥è¶…æ—¶æ—¶é—´
     private final int SOCKET_TIMEOUT = 5000;
 
     public StringRequest(String url, Response.Listener<String> listener, Response.ErrorListener errorListener, Map param) {
@@ -24,7 +24,7 @@ public class StringRequest extends com.android.volley.toolbox.StringRequest {
         this.responseListener = listener;
         this.setShouldCache(true);
         this.setTag(responseListener);
-        // ³¬Ê±ÉèÖÃ
+        // è¶…æ—¶è®¾ç½®
         this.setRetryPolicy(new DefaultRetryPolicy(SOCKET_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
@@ -35,7 +35,7 @@ public class StringRequest extends com.android.volley.toolbox.StringRequest {
         this.setTag(responseListener);
     }
 
-//    // ³¬Ê±ÉèÖÃ
+//    // è¶…æ—¶è®¾ç½®
 //    @Override
 //    public RetryPolicy getRetryPolicy() {
 //        return new DefaultRetryPolicy(SOCKET_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -54,7 +54,7 @@ public class StringRequest extends com.android.volley.toolbox.StringRequest {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Charset", "UTF-8");
 //		headers.put("Content-Type", "application/x-javascript");
-        // gzipÑ¹Ëõ´«Êä
+        // gzipåŽ‹ç¼©ä¼ è¾“
         headers.put("Accept-Encoding", "gzip,deflate");
         return headers;
     }

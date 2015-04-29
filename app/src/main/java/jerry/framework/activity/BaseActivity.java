@@ -19,11 +19,13 @@ import jerry.framework.util.VolleyTools;
  * Created by JerryLiu on 2015/4/14.
  */
 public abstract class BaseActivity extends Activity {
-    // ÓÃÓÚ±¾µØÊı¾İ¿â´æ´¢
+    // ç”¨äºæœ¬åœ°æ•°æ®åº“å­˜å‚¨
     protected BaseDAO dao;
 
     /**
-     * ³õÊ¼»¯ViewsºÍEvent
+     * åˆå§‹åŒ–Viewså’ŒEvent
+     * <p/>
+     * TIPï¼šæ³¨æ„é‡è½½çš„æ—¶å€™ï¼Œéœ€è¦å…ˆç»‘å®šlayoutæ–‡ä»¶ï¼Œç„¶åæ‰èƒ½è°ƒç”¨superæ–¹æ³•ã€‚
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +107,9 @@ public abstract class BaseActivity extends Activity {
 
 
     /**
-     * Ìø×ªActivity
+     * è·³è½¬Activity
      *
-     * @param bundle ¿ÉÎªnull
+     * @param bundle å¯ä¸ºnull
      */
     protected void startActivity(Class<?> targetActivity, Bundle bundle) {
         Intent intent = new Intent(this, targetActivity);
@@ -116,10 +118,10 @@ public abstract class BaseActivity extends Activity {
     }
 
     /**
-     * Activity×¢Ïú¹¦ÄÜ
+     * Activityæ³¨é”€åŠŸèƒ½
      *
-     * @param loginActivity µÇÂ½µÄActivity
-     * @param bundle        ¿ÉÎªnull
+     * @param loginActivity ç™»é™†çš„Activity
+     * @param bundle        å¯ä¸ºnull
      */
     protected void logoutActivity(Class<?> loginActivity, Bundle bundle) {
         Intent intent = new Intent(this, loginActivity);
@@ -131,9 +133,9 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // ÊÍ·Åµôdao
+        // ï¿½Í·Åµï¿½dao
         if (dao != null) {
-            dao.release();// ÊÍ·ÅdaoÖĞµÄdatabasehelper
+            dao.release();// é‡Šæ”¾daoä¸­çš„databasehelper
             dao = null;
         }
 

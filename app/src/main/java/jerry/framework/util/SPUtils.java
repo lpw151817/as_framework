@@ -11,32 +11,35 @@ import java.util.Map;
  * ========================================================
  * <p/>
  * <p/>
- * Î´²âÊÔ
+ * æœªæµ‹è¯•
  * <p/>
  * <p/>
  * ========================================================
  * <p/>
  * <p/>
- * ÀûÓÃSharePreference±£´æÊı¾İ
+ * SharePreferenceå·¥å…·ç±»
  * <p/>
+ * å¯å­˜å‚¨ï¼š
  * boolean
  * float
  * int
  * long
  * String
  * <p/>
- * ×Ô¶¨Òå¶ÔÏó×ª»»³ÉString½øĞĞ±£´æ
+ * å¯¹è±¡è½¬æ¢æˆStringè¿›è¡Œå­˜å‚¨ï¼Œé»˜è®¤è¿›è¡ŒtoString()æ“ä½œ
  */
 public class SPUtils {
-    /**
-     * ±£´æÔÚÊÖ»úÀïÃæµÄÎÄ¼şÃû
-     */
     public static final String SP_FILE_NAME = "share_data";
 
     /**
-     * ±£´æÊı¾İµÄ·½·¨£¬ÎÒÃÇĞèÒªÄÃµ½±£´æÊı¾İµÄ¾ßÌåÀàĞÍ£¬È»ºó¸ù¾İÀàĞÍµ÷ÓÃ²»Í¬µÄ±£´æ·½·¨
+     * å­˜å‚¨æ•°æ®
      *
-     * @param object Èç¹û´«ÈëÄ³¸ö×Ô¶¨ÒåÊµÀı£¬½«×Ô¶¯×ªÎªtoString()½øĞĞ´æ´¢
+     * @param object æ•°æ®ç±»å‹ï¼šboolean
+     *               float
+     *               int
+     *               long
+     *               String
+     *               å¯¹è±¡è½¬æ¢æˆStringè¿›è¡Œå­˜å‚¨ï¼Œé»˜è®¤è¿›è¡ŒtoString()æ“ä½œ
      */
     public static void put(Context context, String key, Object object) {
 
@@ -61,9 +64,14 @@ public class SPUtils {
     }
 
     /**
-     * µÃµ½±£´æÊı¾İµÄ·½·¨£¬ÎÒÃÇ¸ù¾İÄ¬ÈÏÖµµÃµ½±£´æµÄÊı¾İµÄ¾ßÌåÀàĞÍ£¬È»ºóµ÷ÓÃÏà¶ÔÓÚµÄ·½·¨»ñÈ¡Öµ
+     * è·å–æ•°æ®
      *
-     * @return ×Ô¶¨Òå¶ÔÏó·µ»ØString;·µ»ØµÄObjectĞèÒªÇ¿ÖÆ×ª»»³É¶ÔÓ¦µÄ»ù±¾ÀàĞÍ
+     * @return æ•°æ®ç±»å‹ï¼šboolean
+     * float
+     * int
+     * long
+     * String
+     * å¤±è´¥è¿”å›null
      */
     public static Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);
@@ -83,7 +91,7 @@ public class SPUtils {
     }
 
     /**
-     * ÒÆ³ıÄ³¸ökeyÖµÒÑ¾­¶ÔÓ¦µÄÖµ
+     * åˆ é™¤
      */
     public static void remove(Context context, String... keys) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME,
@@ -97,9 +105,7 @@ public class SPUtils {
     }
 
     /**
-     * Çå³ıËùÓĞÊı¾İ
-     *
-     * @param context
+     * æ¸…ç©º
      */
     public static void clear(Context context) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME,
@@ -111,11 +117,7 @@ public class SPUtils {
     }
 
     /**
-     * ²éÑ¯Ä³¸ökeyÊÇ·ñÒÑ¾­´æÔÚ
-     *
-     * @param context
-     * @param key
-     * @return
+     * æ˜¯å¦åŒ…å«å¯¹åº”çš„key
      */
     public static boolean contains(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME,
@@ -124,10 +126,7 @@ public class SPUtils {
     }
 
     /**
-     * ·µ»ØËùÓĞµÄ¼üÖµ¶Ô
-     *
-     * @param context
-     * @return
+     * è·å–æ‰€æœ‰æ•°æ®
      */
     public static Map<String, ?> getAll(Context context) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME,
@@ -136,22 +135,15 @@ public class SPUtils {
     }
 
     /**
-     * ´´½¨Ò»¸ö½â¾öSharedPreferencesCompat.apply·½·¨µÄÒ»¸ö¼æÈİÀà
+     * å› ä¸ºcommitæ–¹æ³•æ˜¯åŒæ­¥çš„ï¼Œå¹¶ä¸”æˆ‘ä»¬å¾ˆå¤šæ—¶å€™çš„commitæ“ä½œéƒ½æ˜¯UIçº¿ç¨‹ä¸­ï¼Œæ¯•ç«Ÿæ˜¯IOæ“ä½œï¼Œå°½å¯èƒ½å¼‚æ­¥ï¼›
      * <p/>
-     * ÒòÎªcommit·½·¨ÊÇÍ¬²½µÄ£¬²¢ÇÒÎÒÃÇºÜ¶àÊ±ºòµÄcommit²Ù×÷¶¼ÊÇUIÏß³ÌÖĞ£¬±Ï¾¹ÊÇIO²Ù×÷£¬¾¡¿ÉÄÜÒì²½£»
+     * æ‰€ä»¥æˆ‘ä»¬ä½¿ç”¨applyè¿›è¡Œæ›¿ä»£ï¼Œapplyå¼‚æ­¥çš„è¿›è¡Œå†™å…¥ï¼›
      * <p/>
-     * ËùÒÔÎÒÃÇÊ¹ÓÃapply½øĞĞÌæ´ú£¬applyÒì²½µÄ½øĞĞĞ´Èë£»
-     * <p/>
-     * µ«ÊÇapplyÏàµ±ÓÚcommitÀ´ËµÊÇnew APIÄØ£¬ÎªÁË¸üºÃµÄ¼æÈİ£¬ÎÒÃÇ×öÁËÊÊÅä£»
+     * ä½†æ˜¯applyç›¸å½“äºcommitæ¥è¯´æ˜¯new APIå‘¢ï¼Œä¸ºäº†æ›´å¥½çš„å…¼å®¹ï¼Œæˆ‘ä»¬åšäº†é€‚é…ï¼›
      */
     private static class SharedPreferencesCompat {
         private static final Method sApplyMethod = findApplyMethod();
 
-        /**
-         * ·´Éä²éÕÒapplyµÄ·½·¨
-         *
-         * @return
-         */
         @SuppressWarnings({"unchecked", "rawtypes"})
         private static Method findApplyMethod() {
             try {
@@ -163,11 +155,6 @@ public class SPUtils {
             return null;
         }
 
-        /**
-         * Èç¹ûÕÒµ½ÔòÊ¹ÓÃapplyÖ´ĞĞ£¬·ñÔòÊ¹ÓÃcommit
-         *
-         * @param editor
-         */
         public static void apply(SharedPreferences.Editor editor) {
             try {
                 if (sApplyMethod != null) {

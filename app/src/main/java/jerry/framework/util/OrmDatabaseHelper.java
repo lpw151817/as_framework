@@ -17,7 +17,7 @@ import jerry.framework.bean.Test;
 public class OrmDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private final static String DATABASE_NAME = "GETUPDB";
-    // 如果想更新数据库表结构，一定先要更新数据库版本
+    // 濡傛灉鎯虫洿鏂版暟鎹簱琛ㄧ粨鏋勶紝涓�瀹氬厛瑕佹洿鏂版暟鎹簱鐗堟湰
     private static int DATABASE_VERSION = 1;
 
     public OrmDatabaseHelper(Context context) {
@@ -63,14 +63,14 @@ public class OrmDatabaseHelper extends OrmLiteSqliteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        // 更新到第2版本(newVersion>1)
+        // 鏇存柊鍒扮2鐗堟湰(newVersion>1)
         if (oldVersion <= 1) {
-            // 对database进行操作
+            // 瀵筪atabase杩涜鎿嶄綔
             database.execSQL("");
         }
-        // 更新到第3版本(newVersion>2)
+        // 鏇存柊鍒扮3鐗堟湰(newVersion>2)
         if (oldVersion <= 2) {
-            // 对database进行操作
+            // 瀵筪atabase杩涜鎿嶄綔
             database.execSQL("");
         }
         // ...

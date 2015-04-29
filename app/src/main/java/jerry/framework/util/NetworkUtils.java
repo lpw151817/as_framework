@@ -16,7 +16,7 @@ public class NetworkUtils {
     }
 
     /**
-     * »ñÈ¡µ±Ç°µÄÍøÂç×´Ì¬
+     * åˆ¤æ–­ç½‘ç»œè¿æ¥çŠ¶æ€
      *
      * @return
      */
@@ -37,9 +37,9 @@ public class NetworkUtils {
     }
 
     /**
-     * ´ò¿ªÍøÂçÉèÖÃ½çÃæ
+     * æ‰“å¼€ç½‘ç»œè®¾ç½®
      */
-    public static void openSetting(Activity activity) {
+    public static void openWirelessSetting(Activity activity) {
         Intent intent = new Intent("/");
         ComponentName cm = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
         intent.setComponent(cm);

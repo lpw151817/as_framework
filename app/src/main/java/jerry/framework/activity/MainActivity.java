@@ -50,10 +50,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         img = (ImageView) findViewById(R.id.imageview);
 
 
-        // µÃµ½VolleyToolsµÄÊµÀı£¬ÒÑ¶¨ÒåÔÚApplication£¬´ÓBaseActivityÖĞÈ¡³ö
+        // å¾—åˆ°VolleyToolsçš„å®ä¾‹ï¼Œå·²å®šä¹‰åœ¨Applicationï¼Œä»BaseActivityä¸­å–å‡º
         tool = getVolleyTools();
 
-        // Êı¾İÇëÇó
+        // æ•°æ®è¯·æ±‚
         // post
         url = "http://114.215.178.134:8080/tyc/app/Product_getProducts";
         Test value = new Test(1, 2);
@@ -93,9 +93,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }));
 
-        // Í¼Æ¬ÇëÇó
+        // å›¾ç‰‡è¯·æ±‚
         url = "http://news.baidu.com/resource/img/logo_news_137_46.png";
-        // ·½·¨Ò»£ºImageRequestÄÜ¹»´¦Àíµ¥ÕÅÍ¼Æ¬
+        // æ–¹æ³•ä¸€ï¼šImageRequestèƒ½å¤Ÿå¤„ç†å•å¼ å›¾ç‰‡
         tool.getQueue().add(new ImageRequest(url, new Response.Listener<Bitmap>() {
 
             @Override
@@ -110,11 +110,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }));
 
-        // ·½·¨¶ş£¬¶ÔÓ¦imageview°ó¶¨¶ÔÓ¦µÄÍøÂçÍ¼Æ¬
+        // æ–¹æ³•äºŒï¼Œå¯¹åº”imageviewç»‘å®šå¯¹åº”çš„ç½‘ç»œå›¾ç‰‡
         // tool.getImageLoader().get(url, ImageLoader.getImageListener(img,
         // R.drawable.ic_launcher, 0));
 
-        // ·½·¨Èı£¬Ê¹ÓÃNetworkImageView
+        // æ–¹æ³•ä¸‰ï¼Œä½¿ç”¨NetworkImageView
         imageView.setImageUrl(url, tool.getImageLoader());
     }
 

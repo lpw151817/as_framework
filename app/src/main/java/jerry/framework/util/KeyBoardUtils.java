@@ -9,10 +9,7 @@ import android.widget.EditText;
  */
 public class KeyBoardUtils {
     /**
-     * 打卡软键盘
-     *
-     * @param mEditText 输入框
-     * @param mContext  上下文
+     * 鎵撳紑閿洏
      */
     public static void openKeybord(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext
@@ -23,10 +20,7 @@ public class KeyBoardUtils {
     }
 
     /**
-     * 关闭软键盘
-     *
-     * @param mEditText 输入框
-     * @param mContext  上下文
+     * 鍏抽棴閿洏
      */
     public static void closeKeybord(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext

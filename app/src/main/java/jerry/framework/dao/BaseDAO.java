@@ -18,7 +18,7 @@ import java.util.Set;
 import jerry.framework.util.OrmDatabaseHelper;
 
 /**
- * Êı¾İ¿â»ù±¾ÔöÉ¾¸Ä²é²Ù×÷
+ * æ•°æ®åº“åŸºæœ¬å¢åˆ æ”¹æŸ¥æ“ä½œ
  *
  * @param <T>
  * @author Jerry
@@ -42,7 +42,7 @@ public abstract class BaseDAO<T, ID> {
 
     public abstract Dao<T, Integer> getDao() throws SQLException;
 
-    // ////////////////////Ôö
+    // ////////////////////å¢
 
     /**
      * @return The number of rows updated in the database. This should be 1.
@@ -62,7 +62,7 @@ public abstract class BaseDAO<T, ID> {
 
     // ////////////////////
 
-    // //////////////////////²é
+    // //////////////////////æŸ¥
     public List<T> query(PreparedQuery<T> preparedQuery) throws SQLException {
         return getDao().query(preparedQuery);
     }
@@ -115,7 +115,7 @@ public abstract class BaseDAO<T, ID> {
     }
 
     /**
-     * ²éÑ¯±ÈlowMap´ó£¬±ÈhighMapĞ¡µÄÊı¾İ
+     * æŸ¥è¯¢æ¯”lowMapå¤§ï¼Œæ¯”highMapå°çš„æ•°æ®
      */
     public List<T> query(Map<String, Object> map, Map<String, Object> lowMap, Map<String, Object> highMap) throws SQLException {
         QueryBuilder<T, Integer> queryBuilder = getDao().queryBuilder();
@@ -178,7 +178,7 @@ public abstract class BaseDAO<T, ID> {
         return query(preparedQuery);
     }
 
-    // ///////////////É¾
+    // ///////////////åˆ 
 
     /**
      * @return The number of rows updated in the database. This should be 1.
@@ -233,7 +233,7 @@ public abstract class BaseDAO<T, ID> {
 
     // //////////////
 
-    // //////////¸Ä
+    // /////////æ”¹
 
     /**
      * @return The number of rows updated in the database. This should be 1.
@@ -261,7 +261,7 @@ public abstract class BaseDAO<T, ID> {
 
     public void release() {
         if (helper != null) {
-            OpenHelperManager.releaseHelper();// ÊÍ·Åµôhelper
+            OpenHelperManager.releaseHelper();// ï¿½Í·Åµï¿½helper
             helper = null;
         }
     }

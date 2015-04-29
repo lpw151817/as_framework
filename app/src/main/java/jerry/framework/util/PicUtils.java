@@ -1,7 +1,7 @@
 package jerry.framework.util;
 
 import android.app.Activity;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,24 +10,25 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by JerryLiu on 2015/4/17.
  */
 public class PicUtils {
-//    // Í¼Æ¬ÔÚSD¿¨ÖĞµÄ»º´æÂ·¾¶
+//    // SDå¡ä¸‹çš„å›¾ç‰‡æ–‡ä»¶å­˜å‚¨è·¯å¾„
 //    private static final String IMAGE_PATH_WITH_SD_CARD = FileUtils.getSDCardPath() + "Images" + File.separator;
-//    // Í¼Æ¬ÔÚÎŞSD¿¨ÖĞµÄ»º´æÂ·¾¶
+//    // æ— SDå¡ä¸‹çš„å›¾ç‰‡æ–‡ä»¶å­˜å‚¨è·¯å¾„
 //    private static final String IMAGE_PATH_WITHOUT_SD_CARD = Environment.getDataDirectory().getPath() + File.separator + "Images" + File.separator;
 
 
-    // Ïà²áµÄRequestCode
+    // å›¾åº“çš„RequestCode
     public static final int INTENT_REQUEST_CODE_ALBUM = 0;
-    // ÕÕÏàµÄRequestCode
+    // ç›¸æœºçš„ RequestCode
     public static final int INTENT_REQUEST_CODE_CAMERA = 1;
 
     /**
-     * Í¨¹ıÊÖ»úÏà²á»ñÈ¡Í¼Æ¬
+     * é€‰æ‹©å›¾åº“ä¸­çš„ç…§ç‰‡
      */
     public static void selectPhoto(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
@@ -37,10 +38,10 @@ public class PicUtils {
     }
 
     /**
-     * Í¨¹ıÊÖ»úÕÕÏà»ñÈ¡Í¼Æ¬
+     * è°ƒç”¨ç³»ç»Ÿæ‹ç…§ç¨‹åºè¿›è¡Œæ‹ç…§
      *
      * @param activity
-     * @return ÕÕÏàºóÍ¼Æ¬µÄÂ·¾¶ Ê§°Ü·µ»Ønull
+     * @return è¿”å›å›¾ç‰‡è·¯å¾„ï¼Œæ‹ç…§å¤±è´¥è¿”å›null
      */
     public static String takePicture(Activity activity) {
         String path;
@@ -48,10 +49,10 @@ public class PicUtils {
         if (FileUtils.isSdcardExist())
             path = activity.getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "";
         else
-            path = activity.getApplicationContext().getFilesDir() + File.separator+"Pictures"+File.separator;
+            path = activity.getApplicationContext().getFilesDir() + File.separator + "Pictures" + File.separator;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        if(!FileUtils.createDirFileWithoutFileName(path)){
+        if (!FileUtils.createDirFileWithoutFileName(path)) {
             return null;
         }
         File file = FileUtils.createFile(path, DateUtils.getDateString() + ".jpg");
@@ -66,11 +67,11 @@ public class PicUtils {
     /**
      * ===========================
      * <p/>
-     * ÔİÎ´ÊµÏÖ
+     * æš‚æœªå®ç°
      * <p/>
      * ===========================
      * <p/>
-     * ²Ã¼ôÍ¼Æ¬
+     * å›¾ç‰‡å‰ªè£
      */
     public static void cropPhoto() {
 
@@ -78,34 +79,22 @@ public class PicUtils {
 
 
     /**
-     * ´ÓÎÄ¼şÖĞ»ñÈ¡Í¼Æ¬
-     *
-     * @param path Í¼Æ¬µÄÂ·¾¶
+     * ä»æ–‡ä»¶ä¸­è¯»å–å‡ºbitmap
      */
     public static Bitmap getBitmapFromFile(String path) {
         return BitmapFactory.decodeFile(path);
     }
 
     /**
-     * ===========================
-     * <p/>
-     * ÔİÎ´ÊµÏÖ
-     * <p/>
-     * ===========================
-     * <p/>
-     * ´ÓUriÖĞ»ñÈ¡Í¼Æ¬
+     * uriä¸­è¯»å–å‡ºbitmap
      *
-     * @param cr  ContentResolver¶ÔÏó
-     * @param uri Í¼Æ¬µÄUri
+     * @return å¤±è´¥è¿”å›null
      */
-    public static Bitmap getBitmapFromUri(ContentResolver cr, Uri uri) {
-        //¸Ã·½·¨²»Ò»¶¨¿É¿¿
-//        try {
-//            return BitmapFactory.decodeStream(cr.openInputStream(uri));
-//        } catch (FileNotFoundException e) {
-//            return null;
-//        }
-        return null;
+    public static Bitmap getBitmapFromUri(Context c, Uri uri) {
+        try {
+            return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri));
+        } catch (FileNotFoundException e) {
+            return null;
+        }
     }
-
 }
