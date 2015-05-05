@@ -3,17 +3,15 @@ package jerry.framework.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 /**
  * Created by JerryLiu on 2015/4/17.
  */
 public class SystemUtils {
     /**
-     * @return »ñÈ¡Ê§°Ü·µ»Ø0
+     * @return è·å–é”™è¯¯è¿”å›0
      */
-    public static int getVersionCode(Context context)// »ñÈ¡°æ±¾ºÅ(ÄÚ²¿Ê¶±ğºÅ)
+    public static int getVersionCode(Context context)
     {
         try {
             PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -25,9 +23,9 @@ public class SystemUtils {
     }
 
     /**
-     * »ñÈ¡Ó¦ÓÃ³ÌĞò°æ±¾Ãû³ÆĞÅÏ¢
+     * è·å–manifastæ–‡ä»¶ä¸­çš„versionnameå±æ€§å€¼
      *
-     * @return µ±Ç°Ó¦ÓÃµÄ°æ±¾Ãû³Æ  »ñÈ¡Ê§°Ü·µ»Ønull
+     * @return é”™è¯¯è¿”å›null
      */
     public static String getVersionName(Context context) {
         try {
@@ -41,9 +39,6 @@ public class SystemUtils {
     }
 
 
-    /**
-     * »ñÈ¡Ó¦ÓÃ³ÌĞòÃû³Æ
-     */
     public static String getAppName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();

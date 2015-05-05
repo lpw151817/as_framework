@@ -61,22 +61,12 @@ public class FileUploadRequest extends AsyncTask<Uri, Integer, String> {
             }
             HttpClient httpclient = new DefaultHttpClient();
             httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-            HttpPost httppost = new HttpPost("http://172.16.13.113/test/");
+            HttpPost httppost = new HttpPost("http://172.16.12.1/test/");
 
-//            ================= method 1
             MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
             multipartEntityBuilder.addBinaryBody("data", f, ContentType.DEFAULT_BINARY, f.getName());
             multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             httppost.setEntity(multipartEntityBuilder.build());
-
-//            //=================method 2====================
-//            //================= 已废除 ====================
-//            FileBody fb = new FileBody(f);
-//            MultipartEntity entity = new MultipartEntity();
-//
-//            entity.addPart("data", fb);
-//            httppost.setEntity(entity);
-
 
             HttpParams p = httpclient.getParams();
             HttpConnectionParams.setConnectionTimeout(p, 3000);

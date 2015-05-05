@@ -44,9 +44,7 @@ public class FileUtils {
     public static long getSDCardAllSize() {
         if (isSdcardExist()) {
             StatFs stat = new StatFs(getSDCardPath());
-            // ��ȡ���е����ݿ������
             long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-            // ��ȡ�������ݿ�Ĵ�С��byte��
             long freeBlocks = stat.getAvailableBlocks();
             return freeBlocks * availableBlocks;
         }
@@ -170,12 +168,10 @@ public class FileUtils {
 
     public static File getFileFromUri(Uri contentUri, Context c) {
         if (contentUri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-
             String res = null;
             String[] proj = {MediaStore.Images.Media.DATA};
             Cursor cursor = c.getContentResolver().query(contentUri, proj, null, null, null);
             if (cursor.moveToFirst()) {
-                ;
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 res = cursor.getString(column_index);
             }

@@ -46,4 +46,9 @@ public class NetworkUtils {
         intent.setAction("android.intent.action.VIEW");
         activity.startActivityForResult(intent, 0);
     }
+
+    public static String getFileNameFromURL(String URL) {
+        return
+                URL.substring(URL.lastIndexOf("/") + 1, URL.length());
+    }
 }

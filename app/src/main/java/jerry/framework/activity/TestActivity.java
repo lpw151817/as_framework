@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import jerry.framework.R;
+import jerry.framework.request.FileDownloadRequest;
 import jerry.framework.request.FileUploadRequest;
 import jerry.framework.util.PicUtils;
 
@@ -15,7 +16,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
 
 
     TextView h;
-    Button b;
+    Button b, b4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,14 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     protected void iniViews() {
         h = (TextView) findViewById(R.id.hw);
         b = (Button) findViewById(R.id.button);
+        b4 = (Button) findViewById(R.id.button4);
     }
 
     @Override
     protected void iniEvent() {
         h.setOnClickListener(this);
         b.setOnClickListener(this);
+        b4.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +70,9 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.button4:
+                new FileDownloadRequest(TestActivity.this).execute("http://172.16.12.1/test/1430289587715.jpg");
                 break;
         }
     }

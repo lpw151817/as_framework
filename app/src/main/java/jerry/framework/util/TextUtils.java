@@ -18,12 +18,7 @@ public class TextUtils {
     }
 
     /**
-     * 根据年月日获取年龄
-     *
-     * @param year  年
-     * @param month 月
-     * @param day   日
-     * @return
+     * 鏍规嵁鐢熸棩鑾峰彇骞撮緞
      */
     public static int getAge(int year, int month, int day) {
         int age = 0;
