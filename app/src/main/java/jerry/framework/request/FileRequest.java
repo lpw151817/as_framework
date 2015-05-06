@@ -17,8 +17,13 @@ import ch.boye.httpclientandroidlib.entity.mime.HttpMultipartMode;
 import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
 
 /**
+ * ==============================
+ * 不推荐使用
+ * ==============================
+ *
  * Created by JerryLiu on 2015/5/6.
  */
+@Deprecated
 public class FileRequest extends Request<String> {
 
     Response.Listener<String> l;
