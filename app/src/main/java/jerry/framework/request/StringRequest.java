@@ -33,6 +33,8 @@ public class StringRequest extends com.android.volley.toolbox.StringRequest {
         this.responseListener = listener;
         this.setShouldCache(true);
         this.setTag(responseListener);
+        // 超时设置
+        this.setRetryPolicy(new DefaultRetryPolicy(SOCKET_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 //    // 超时设置

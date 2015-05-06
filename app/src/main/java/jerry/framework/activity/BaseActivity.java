@@ -133,7 +133,7 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // �ͷŵ�dao
+        //释放dao
         if (dao != null) {
             dao.release();// 释放dao中的databasehelper
             dao = null;

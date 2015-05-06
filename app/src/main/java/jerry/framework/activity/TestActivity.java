@@ -7,9 +7,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import jerry.framework.R;
 import jerry.framework.request.FileDownloadRequest;
+import jerry.framework.request.FileRequest;
 import jerry.framework.request.FileUploadRequest;
+import jerry.framework.util.FileUtils;
 import jerry.framework.util.PicUtils;
 
 public class TestActivity extends BaseActivity implements View.OnClickListener {
@@ -44,7 +49,19 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
             switch (requestCode) {
                 case PicUtils.INTENT_REQUEST_CODE_ALBUM:
 
-                    new FileUploadRequest(TestActivity.this).execute(data.getData());
+//                    new FileUploadRequest(TestActivity.this).execute(data.getData());
+                    getVolleyTools().getQueue().add(new FileRequest("http://172.16.13.86/test/", new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            showLog_i(s);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            showLog_e(volleyError.toString());
+                        }
+                    }, FileUtils.getFileFromUri(data.getData(), TestActivity.this)));
+
                     break;
                 case 123:
                     showLog_i(data.getDataString() + "<<<<<<<<<<<<<<<<<<");
