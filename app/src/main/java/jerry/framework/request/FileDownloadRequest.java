@@ -1,7 +1,6 @@
 package jerry.framework.request;
 
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,25 +15,24 @@ import jerry.framework.util.NetworkUtils;
  */
 public class FileDownloadRequest extends AsyncTask<String, Integer, String> {
 
+    MyCallBack cb;
     Context c;
-    ProgressDialog pd;
 
-    public FileDownloadRequest(Context c) {
+    public FileDownloadRequest(Context c, MyCallBack cb) {
         this.c = c;
-        this.pd=new ProgressDialog(c);
+        this.cb = cb;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.pd.show();
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         System.out.println(s + "<<<<<<<<<<<<<<<<<<<<<<<");
-        this.pd.dismiss();
+        cb.response(2, s);
     }
 
     @Override

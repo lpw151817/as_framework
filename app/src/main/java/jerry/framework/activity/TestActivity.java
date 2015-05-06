@@ -11,13 +11,16 @@ import android.widget.Toast;
 import jerry.framework.R;
 import jerry.framework.request.FileDownloadRequest;
 import jerry.framework.request.FileUploadRequest;
+import jerry.framework.request.MyCallBack;
 import jerry.framework.util.PicUtils;
 
-public class TestActivity extends BaseActivity implements View.OnClickListener {
+public class TestActivity extends BaseActivity implements View.OnClickListener, MyCallBack {
 
 
     TextView h;
     Button b, b4, b5;
+
+    public  static final String URL="http://172.16.13.86/test/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PicUtils.INTENT_REQUEST_CODE_ALBUM:
-
-                    new FileUploadRequest(TestActivity.this).execute(data.getData());
+                    showLoadingDialog(null, null);
+                    new FileUploadRequest(TestActivity.this, TestActivity.this).execute(data.getData());
 
 
                     /**
@@ -68,11 +71,12 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
 
                     break;
                 case 123:
+                    showLoadingDialog(null, null);
                     showLog_i(data.getDataString() + "<<<<<<<<<<<<<<<<<<");
-                    new FileUploadRequest(TestActivity.this).execute(data.getData());
+                    new FileUploadRequest(TestActivity.this, TestActivity.this).execute(data.getData());
                     break;
                 case 456:
-showLog_i(data.getDataString());
+                    showLog_i(data.getDataString());
                     break;
             }
         }
@@ -96,7 +100,8 @@ showLog_i(data.getDataString());
                 }
                 break;
             case R.id.button4:
-                new FileDownloadRequest(TestActivity.this).execute("http://172.16.12.1/test/1430289587715.jpg");
+                showLoadingDialog(null,null);
+                new FileDownloadRequest(TestActivity.this, TestActivity.this).execute(this.URL+"1430289587715.jpg");
                 break;
             case R.id.button5:
                 Intent intent2 = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -104,6 +109,15 @@ showLog_i(data.getDataString());
 //                intent2.putExtra(MediaStore.EXTRA_OUTPUT,uri);
                 startActivityForResult(intent2, 456);
                 break;
+        }
+    }
+
+    @Override
+    public void response(int flag, String result) {
+        dismissLoadingDialog();
+        switch (flag) {
+            default:
+                showLog_i(result + "<<<<<<<<<<<<<<<");
         }
     }
 }

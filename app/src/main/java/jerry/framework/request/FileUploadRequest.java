@@ -1,6 +1,5 @@
 package jerry.framework.request;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,6 +18,7 @@ import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
 import ch.boye.httpclientandroidlib.params.CoreProtocolPNames;
 import ch.boye.httpclientandroidlib.params.HttpConnectionParams;
 import ch.boye.httpclientandroidlib.params.HttpParams;
+import jerry.framework.activity.TestActivity;
 import jerry.framework.util.FileUtils;
 
 /**
@@ -26,28 +26,26 @@ import jerry.framework.util.FileUtils;
  */
 public class FileUploadRequest extends AsyncTask<Uri, Integer, String> {
 
-    ProgressDialog pd;
     Context c;
+    MyCallBack myCallBack;
 
-    public FileUploadRequest(Context c) {
-        this.pd = new ProgressDialog(c);
+    public FileUploadRequest(Context c, MyCallBack cb) {
         this.c = c;
+        this.myCallBack = cb;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.pd.show();
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        this.pd.dismiss();
         if (s != null) {
             System.out.println(s);
         }
-
+        this.myCallBack.response(1, s);
     }
 
     @Override
@@ -61,7 +59,7 @@ public class FileUploadRequest extends AsyncTask<Uri, Integer, String> {
             }
             HttpClient httpclient = new DefaultHttpClient();
             httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-            HttpPost httppost = new HttpPost("http://172.16.12.1/test/");
+            HttpPost httppost = new HttpPost(TestActivity.URL);
 
             MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
             multipartEntityBuilder.addBinaryBody("data", f, ContentType.DEFAULT_BINARY, f.getName());

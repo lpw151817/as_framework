@@ -1,6 +1,7 @@
 package jerry.framework.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import jerry.framework.util.VolleyTools;
 public abstract class BaseActivity extends Activity {
     // 用于本地数据库存储
     protected BaseDAO dao;
+    protected ProgressDialog mLoadingDialog;
 
     /**
      * 初始化Views和Event
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         iniViews();
         iniEvent();
+        this.mLoadingDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -139,5 +142,17 @@ public abstract class BaseActivity extends Activity {
             dao = null;
         }
 
+    }
+
+    protected void showLoadingDialog(String title, String message) {
+        if (title != null) mLoadingDialog.setTitle(title);
+        if (message != null) mLoadingDialog.setMessage(message);
+        mLoadingDialog.show();
+    }
+
+    protected void dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 }
