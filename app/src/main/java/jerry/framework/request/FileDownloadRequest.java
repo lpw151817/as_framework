@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import java.io.File;
 
+import jerry.framework.activity.TestActivity;
 import jerry.framework.util.FileUtils;
 import jerry.framework.util.NetworkUtils;
 
@@ -32,7 +33,7 @@ public class FileDownloadRequest extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         System.out.println(s + "<<<<<<<<<<<<<<<<<<<<<<<");
-        cb.response(2, s);
+        cb.response(TestActivity.DOWNLOAD_CALLBACK_FLAG, s);
     }
 
     @Override
@@ -40,6 +41,9 @@ public class FileDownloadRequest extends AsyncTask<String, Integer, String> {
 
         DownloadManager dm = (DownloadManager) this.c.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(params[0]);
+//            //获取文件大小
+//            URL u = new URL(params[0]);
+//            System.out.println(u.openConnection().getContentLength() + "<<<");
 
         DownloadManager.Request request = new DownloadManager.Request(uri);
 
@@ -55,5 +59,7 @@ public class FileDownloadRequest extends AsyncTask<String, Integer, String> {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         long reference = dm.enqueue(request);
         return "success!!!!";
+
+
     }
 }

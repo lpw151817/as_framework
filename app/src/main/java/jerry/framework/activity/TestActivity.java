@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,11 @@ public class TestActivity extends BaseActivity implements View.OnClickListener, 
 
     TextView h;
     Button b, b4, b5;
+    ProgressBar pb;
 
-    public  static final String URL="http://172.16.13.86/test/";
+    public static final int UPLOAD_CALLBACK_FLAG = 1;
+    public static final int DOWNLOAD_CALLBACK_FLAG = 2;
+    public static final String URL = "http://172.16.14.203/test/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener, 
         b = (Button) findViewById(R.id.button);
         b4 = (Button) findViewById(R.id.button4);
         b5 = (Button) findViewById(R.id.button5);
-
+        pb = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     @Override
@@ -100,8 +104,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.button4:
-                showLoadingDialog(null,null);
-                new FileDownloadRequest(TestActivity.this, TestActivity.this).execute(this.URL+"1430289587715.jpg");
+                showLoadingDialog(null, null);
+                new FileDownloadRequest(TestActivity.this, TestActivity.this).execute(this.URL + "1430289587715.jpg");
                 break;
             case R.id.button5:
                 Intent intent2 = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -116,8 +120,10 @@ public class TestActivity extends BaseActivity implements View.OnClickListener, 
     public void response(int flag, String result) {
         dismissLoadingDialog();
         switch (flag) {
-            default:
-                showLog_i(result + "<<<<<<<<<<<<<<<");
+            case DOWNLOAD_CALLBACK_FLAG:
+                break;
+            case UPLOAD_CALLBACK_FLAG:
+                break;
         }
     }
 }

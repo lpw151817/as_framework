@@ -35,6 +35,11 @@ public class FileUploadRequest extends AsyncTask<Uri, Integer, String> {
     }
 
     @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+    }
+
+    @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
@@ -45,7 +50,7 @@ public class FileUploadRequest extends AsyncTask<Uri, Integer, String> {
         if (s != null) {
             System.out.println(s);
         }
-        this.myCallBack.response(1, s);
+        this.myCallBack.response(TestActivity.UPLOAD_CALLBACK_FLAG, s);
     }
 
     @Override
